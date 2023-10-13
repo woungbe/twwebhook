@@ -1,0 +1,26 @@
+{
+    "ServerName":"Tradingview WebHook-API1(DEV)",
+    "RunMode":"debug",
+    "LogFile":"N",
+    "Ssluse":"N",
+	"Sslkey":"",
+    "Sslcrt":"",
+    "CORSuse":true, 
+    "RestLinkURL":"api",
+	"RestPort":80,   
+    "LogSvrAddr":"127.0.0.1:9184/Log",
+    "LogSvrUse":false,
+    "LogSendLevel":0,
+    "TelegramToken":"",
+    "IPLimitUse":false,
+    "IPLimitAddres":"",
+    "LimitorUse":true,
+    "LimitorInfo":{
+            "UrlPathLength":1,
+            "AllUIDLength":30,        
+            "UrlPathLimitOverTime":5,
+            "AllUIDLimitOverTime":300,
+            "UrlPathLimitCount":50,
+            "AllUIDLimitCount":1000    
+        }
+}
