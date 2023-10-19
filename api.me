@@ -1,0 +1,70 @@
+API 빼기 
+
+신호 받는 api 
+: 있는거 그대로 사용하면 됨 
+
+유저정보 리스트호출 - 
+: 식별자만 호출해야됨 
+
+
+유저정보 신규등록 
+reqeust
+: 식별자
+: access
+: script 
+
+response
+: 고유번호 
+
+
+매칭 전략 정보 리스트 
+request
+: searchText 
+
+response
+: 전략정보 전부 
+
+
+개별 주문 설정 모음 
+request
+: 고유번호 
+
+response
+: 개별 주문 설정 내용 
+
+- 방식은 개별주문 설정을 변경한 후 적용해야 반영됨 
+
+개별 주문 설정 수정 
+request
+: 개별설정 고유번호 
+: 유저고유번호 
+
+response
+: 성공, 실패 
+
+
+유저 전략 테이블 조회
+reqeust 
+
+response  
+: 유저 전략 테이블 맵핑 
+
+
+유저 전략 테이블 추가 
+request
+: 유저 고유번호 
+: 개별 주문 설정 고유번호 
+
+response
+: success 
+: data {
+ 유저- 전략 맵핑 테이블 리스트 모두 ( 이렇게 등록됐다. 알려줌 )
+}
+
+
+
+request
+
+
+response
+
