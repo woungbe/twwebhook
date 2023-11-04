@@ -77,6 +77,7 @@ func (ty *TelegramCtrl) procFunc() {
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
 
+	//updates := ty.pBot.GetUpdatesChan(u)
 	updates, err := ty.pBot.GetUpdatesChan(u)
 	if err != nil {
 		fmt.Println("err : ", err)
