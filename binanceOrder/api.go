@@ -3,7 +3,6 @@ package binanceorder
 import (
 	"context"
 	"fmt"
-	"twwebhook/twebdefined"
 
 	"github.com/adshao/go-binance/v2"
 	"github.com/adshao/go-binance/v2/futures"
@@ -65,6 +64,14 @@ func (ty *BinanceInfo) GetLeverageList() ([]*futures.LeverageBracket, error) {
 	return res, nil
 }
 
+// 유저 레버리지 가져오기
+// func (ty *BinanceInfo) GetLeverage(symbol string) (int, error) {
+
+// 	res, err := ty.FutuClient.NeWLe
+
+// 	return res, nil
+// }
+
 // 레버리지 세팅하기
 func (ty *BinanceInfo) SetLeverage(symbol string, leverage int) (*futures.SymbolLeverage, error) {
 	// ChangeLeverageService symbol  leverage
@@ -76,7 +83,7 @@ func (ty *BinanceInfo) SetLeverage(symbol string, leverage int) (*futures.Symbol
 }
 
 // 주문 넣기
-func (ty *BinanceInfo) SendOrder(inf twebdefined.REST_FUTURE_NewOrder) (*futures.CreateOrderResponse, error) {
+func (ty *BinanceInfo) SendOrder(inf REST_FUTURE_NewOrder) (*futures.CreateOrderResponse, error) {
 	// CreateOrderService
 	obj := ty.FutuClient.NewCreateOrderService().
 		Symbol(inf.Symbol).
@@ -161,9 +168,9 @@ func (ty *BinanceInfo) GetAccountInfo() ([]*futures.Balance, error) {
 }
 
 // 현재가 가져오기  (ticker )
-func (ty *BinanceInfo) GetTickerInfo() ([]*futures.PriceChangeStats, error) {
+func (ty *BinanceInfo) GetTickerInfo(symbol string) ([]*futures.PriceChangeStats, error) {
 	// /v1/ticker/24hr - ListPriceChangeStatsService
-	res, err := ty.FutuClient.NewListPriceChangeStatsService().Do(context.Background())
+	res, err := ty.FutuClient.NewListPriceChangeStatsService().Symbol(symbol).Do(context.Background())
 	if err != nil {
 		return nil, err
 	}
@@ -171,9 +178,9 @@ func (ty *BinanceInfo) GetTickerInfo() ([]*futures.PriceChangeStats, error) {
 }
 
 // 현재 포지션 가져오기 정보 -- 펀딩피에서는 사용안함
-func (ty *BinanceInfo) GetPositionInfo() ([]*futures.PositionRisk, error) {
+func (ty *BinanceInfo) GetPositionInfo(symbol string) ([]*futures.PositionRisk, error) {
 	// /v2/positionRisk - GetPositionRiskService - GetPositionRiskService
-	res, err := ty.FutuClient.NewGetPositionRiskService().Do(context.Background())
+	res, err := ty.FutuClient.NewGetPositionRiskService().Symbol(symbol).Do(context.Background())
 	if err != nil {
 		return nil, err
 	}
