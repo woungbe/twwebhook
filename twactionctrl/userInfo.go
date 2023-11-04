@@ -1,5 +1,6 @@
 package twactionctrl
 
+/*
 // 실제사용할 유저 데이터
 type UserData struct {
 	Key    string
@@ -17,3 +18,4 @@ func (ty *UserInfo) Init() {
 	// db에서 정보 가져오기
 
 }
+*/

@@ -4,6 +4,11 @@ const (
 	NotFoundSymbo = "없는 심볼"
 )
 
+type RESTErrorREQ struct {
+	Code         int64  `json:"code"` //에러코드 OK = 성공
+	ErrorMessage string `json:"msg"`  //에러메시지
+}
+
 // 주문, TP, SL 만 되는 주문 목록 - 주문간소화
 type BiananceOrder struct {
 	Symbol       string // BTCUSDT
@@ -35,4 +40,66 @@ type REST_FUTURE_NewOrder struct {
 	WorkingType      string //	ENUM	NO	stopPrice triggered by: "MARK_PRICE", "CONTRACT_PRICE". Default "CONTRACT_PRICE"
 	PriceProtect     string //	STRING	NO	"TRUE" or "FALSE", default "FALSE". Used with STOP/STOP_MARKET or TAKE_PROFIT/TAKE_PROFIT_MARKET orders.
 	NewOrderRespType string //	ENUM	NO	"ACK", "RESULT", default "ACK"
+}
+
+// ExchangeInfo exchange info
+type ExchangeInfo struct {
+	Timezone        string        `json:"timezone"`
+	ServerTime      int64         `json:"serverTime"`
+	RateLimits      []RateLimit   `json:"rateLimits"`
+	ExchangeFilters []interface{} `json:"exchangeFilters"`
+	Symbols         []SymbolData  `json:"symbols"`
+}
+
+func (ty *ExchangeInfo) SetData() {
+
+}
+
+// RateLimit struct
+type RateLimit struct {
+	RateLimitType string `json:"rateLimitType"`
+	Interval      string `json:"interval"`
+	IntervalNum   int64  `json:"intervalNum"`
+	Limit         int64  `json:"limit"`
+}
+
+type SymbolData struct {
+	Symbol                string                   `json:"symbol"`
+	Pair                  string                   `json:"pair"`
+	ContractType          string                   `json:"contractType"`
+	DeliveryDate          int64                    `json:"deliveryDate"`
+	OnboardDate           int64                    `json:"onboardDate"`
+	Status                string                   `json:"status"`
+	MaintMarginPercent    string                   `json:"maintMarginPercent"`
+	RequiredMarginPercent string                   `json:"requiredMarginPercent"`
+	PricePrecision        int                      `json:"pricePrecision"`
+	QuantityPrecision     int                      `json:"quantityPrecision"`
+	BaseAssetPrecision    int                      `json:"baseAssetPrecision"`
+	QuotePrecision        int                      `json:"quotePrecision"`
+	UnderlyingType        string                   `json:"underlyingType"`
+	UnderlyingSubType     []string                 `json:"underlyingSubType"`
+	SettlePlan            int                      `json:"settlePlan"`
+	TriggerProtect        string                   `json:"triggerProtect"`
+	OrderType             []string                 `json:"OrderType"`
+	TimeInForce           []string                 `json:"timeInForce"`
+	Filters               []map[string]interface{} `json:"filters"`
+	QuoteAsset            string                   `json:"quoteAsset"`
+	MarginAsset           string                   `json:"marginAsset"`
+	BaseAsset             string                   `json:"baseAsset"`
+}
+
+// LeverageBracket define the leverage bracket
+type LeverageBracket struct {
+	Symbol   string    `json:"symbol"`
+	Brackets []Bracket `json:"brackets"`
+}
+
+// Bracket define the bracket
+type Bracket struct {
+	Bracket          int     `json:"bracket"`
+	InitialLeverage  int     `json:"initialLeverage"`
+	NotionalCap      float64 `json:"notionalCap"`
+	NotionalFloor    float64 `json:"notionalFloor"`
+	MaintMarginRatio float64 `json:"maintMarginRatio"`
+	Cum              float64 `json:"cum"`
 }

@@ -38,10 +38,10 @@ func DecimalCount(numbers string) (bool, int) {
 	return true, decimalPlaces
 }
 
-func RoundFloat(num float64, precision int) float64 {
+func CeilFloat(num float64, precision int) float64 {
 	shift := math.Pow(10, float64(precision))
-	rounded := math.Round(num*shift) / shift
-	return rounded
+	Ceil := math.Ceil(num*shift) / shift
+	return Ceil
 }
 
 // 현재가, 최소금액
