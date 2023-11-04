@@ -4,25 +4,29 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"twwebhook/pawDB"
 )
 
 var debugmodeflg bool = false //디버그 모드 플레그
 type SvrConfigData struct {
-	ServerName    string        //서버명
-	RunMode       string        // = release (서비스용) , debug (디버그용)
-	LogFile       string        //= Y/N  로그정보 파일로 저장할것인가
-	Ssluse        string        //= Y,N
-	Sslkey        string        //= ssl key 파일
-	Sslcrt        string        //= ssl crt 파일
-	RestLinkURL   string        // 서비스 루트 링크 ("" 인경우 디폴트로 "api")
-	RestPort      int           //	HTTP 포트 번호
-	CORSuse       bool          //크로스 도메인 요청 처리할것인가 ( 외부 html을 사용시 true 할것)
-	LogSvrAddr    string        //로그서버 접속 주소 (127.0.01:000/Log  형태의 포트포함 URL까지)
-	LogSvrUse     bool          //로그를 서버로 전송할것인가.
-	LogSendLevel  int           //로그전송 레벨 ( 0= 전체, 1= 워링 부터)
-	TelegramToken string        //텔레그램 bot 토큰
-	LimitorUse    bool          //리미터 사용여부
-	LimitorInfo   LimitorConfig //리미터 설정
+	ServerName         string              //서버명
+	RunMode            string              // = release (서비스용) , debug (디버그용)
+	LogFile            string              //= Y/N  로그정보 파일로 저장할것인가
+	Ssluse             string              //= Y,N
+	Sslkey             string              //= ssl key 파일
+	Sslcrt             string              //= ssl crt 파일
+	RestLinkURL        string              // 서비스 루트 링크 ("" 인경우 디폴트로 "api")
+	RestPort           int                 //	HTTP 포트 번호
+	CORSuse            bool                //크로스 도메인 요청 처리할것인가 ( 외부 html을 사용시 true 할것)
+	LogSvrAddr         string              //로그서버 접속 주소 (127.0.01:000/Log  형태의 포트포함 URL까지)
+	LogSvrUse          bool                //로그를 서버로 전송할것인가.
+	LogSendLevel       int                 //로그전송 레벨 ( 0= 전체, 1= 워링 부터)
+	TelegramToken      string              //텔레그램 bot 토큰
+	LimitorUse         bool                //리미터 사용여부
+	LimitorInfo        LimitorConfig       //리미터 설정
+	MainDBConfig       pawDB.DbConnectInfo //system db 정보
+	MainSelectDBConfig pawDB.DbConnectInfo //system select 전용 db 정보
+
 }
 type LimitorConfig struct {
 	UrlPathLength        int64 //urlPath 체크 타임 ( 1초 단위로 설정,  )
@@ -39,6 +43,8 @@ type APISvrConfig struct {
 }
 
 var APISvrConfigPtr *APISvrConfig
+var MainMysqlObj *pawDB.BCEDBforMysql       //메인 db
+var MainSelectMysqlObj *pawDB.BCEDBforMysql //메인 select db
 
 // IsDebugmode 현재  디버그 모드이가 체크
 func IsDebugmode() bool {
